@@ -24,4 +24,23 @@ npm i react-router-dom
 
 // create a login/sign up component and switch between them using state variable
 
-// use regex for email and password validation
+// use regex for email and password .name validation
+
+// useRef can be used to get input element values
+
+// create a firebase project install firebase in terminal and copy and store the data in utils
+
+// then enable email/password authentication in firebase
+
+//deploy the app to firebase
+ npm install -g firebase-tools - to install firebase cli
+
+//  to deploy to  firebase
+firebase login
+firebase init , then select hoisting
+npm build 
+firebase deploy - to deploy
+
+// create authentication
+
+ 
