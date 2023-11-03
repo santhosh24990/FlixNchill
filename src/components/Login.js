@@ -1,16 +1,30 @@
 import { useState, useRef } from "react";
 import Header from "./Header";
 import bgN from "./images/bgN.jpg";
-import { validateEmail, validatePassword } from "../utis/Validate";
+import {
+  validateEmail,
+  validatePassword,
+  validateName,
+} from "../utis/Validate";
 
 const Login = () => {
   const [isSigninForm, setIsSigninform] = useState(true);
   const [emailvalidateMessage, setEmailValidateMessage] = useState(null);
   const [passwordValidateMessage, setPasswordValidateMessage] = useState(null);
+  const [nameValidateMessage, setNameValidateMessage] = useState(null);
   const email = useRef(null);
   const password = useRef(null);
+  const name = useRef(null);
 
-  const toggleform = () => [setIsSigninform(!isSigninForm)];
+  const toggleform = () => {
+    email.current.value = null;
+    password.current.value = null;
+    setEmailValidateMessage(null);
+    setEmailValidateMessage(null);
+    setPasswordValidateMessage(null);
+    setNameValidateMessage(null);
+    setIsSigninform(!isSigninForm);
+  };
 
   const handlebuttonclick = () => {
     const emailValidation = validateEmail(email.current.value);
@@ -18,6 +32,11 @@ const Login = () => {
 
     const passwordValidation = validatePassword(password.current.value);
     setPasswordValidateMessage(passwordValidation);
+
+    if (isSigninForm === false) {
+      const nameValidation = validateName(name.current.value);
+      setNameValidateMessage(nameValidation);
+    }
   };
 
   return (
@@ -35,29 +54,40 @@ const Login = () => {
           className="flex  flex-col text-black"
         >
           {!isSigninForm && (
-            <input
-              type="text"
-              className=" text-white p-3 mb-10 rounded-md outline-none text-xl bg-[#333]  "
-              placeholder="Name"
-            ></input>
+            <div>
+              <input
+                ref={name}
+                type="text"
+                className=" text-white p-3 w-full mb-3 rounded-md outline-none text-xl bg-[#333]  "
+                placeholder="Name"
+              ></input>
+              <p className="text-red-600 text-sm font-bold mb-3">
+                {nameValidateMessage}
+              </p>
+            </div>
           )}
+
           <input
             ref={email}
             type="text"
             className=" text-white p-3 mb-3 rounded-md outline-none text-xl bg-[#333]  "
             placeholder="Email Address"
           ></input>
-          <p className="text-red-600 text-sm mb-3">{emailvalidateMessage}</p>
+          <p className="text-red-600 text-sm font-bold mb-3">
+            {emailvalidateMessage}
+          </p>
           <input
             ref={password}
             type="text"
             className=" text-white p-3 rounded-md outline-none text-xl bg-[#333] mb-3 "
             placeholder="Password"
           ></input>
-          <p className="text-red-600 text-sm mb-3">{passwordValidateMessage}</p>
+          <p className="text-red-600 text-sm font-bold mb-3">
+            {passwordValidateMessage}
+          </p>
           <button
             onClick={handlebuttonclick}
-            className="w-full bg-[#e50914] rounded-lg py-2 mb-5  text-2xl font-bold"
+            className="w-full bg-[#e50914] text-white rounded-lg py-2 mb-5  text-xl font-lg"
           >
             {isSigninForm ? "Sign In" : "Sign Up"}
           </button>

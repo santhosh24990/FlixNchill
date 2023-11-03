@@ -16,3 +16,13 @@ export const validatePassword = (password) => {
 
   return null;
 };
+
+export const validateName = (name) => {
+  const isNameValid =
+    /^[a-zA-Z]+( [a-zA-Z]+)+$/.test(name) ||
+    /^[a-zA-Z][a-zA-Z\\s]+$/.test(name);
+
+  if (!isNameValid) return "Enter a valid Name";
+
+  return null;
+};
