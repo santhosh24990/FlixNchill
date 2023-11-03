@@ -21,3 +21,7 @@ https://tailwindcss.com/docs/guides/create-react-app
 npm i react-router-dom
 
 // create components and and add routing for them
+
+// create a login/sign up component and switch between them using state variable
+
+// use regex for email and password validation
