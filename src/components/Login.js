@@ -6,12 +6,18 @@ import {
   validatePassword,
   validateName,
 } from "../utis/Validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utis/firebase";
 
 const Login = () => {
   const [isSigninForm, setIsSigninform] = useState(true);
   const [emailvalidateMessage, setEmailValidateMessage] = useState(null);
   const [passwordValidateMessage, setPasswordValidateMessage] = useState(null);
   const [nameValidateMessage, setNameValidateMessage] = useState(null);
+  const [authenticationError, setAuthenticationError] = useState(null);
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
@@ -20,9 +26,10 @@ const Login = () => {
     email.current.value = null;
     password.current.value = null;
     setEmailValidateMessage(null);
-    setEmailValidateMessage(null);
     setPasswordValidateMessage(null);
     setNameValidateMessage(null);
+    setAuthenticationError(null);
+
     setIsSigninform(!isSigninForm);
   };
 
@@ -36,6 +43,41 @@ const Login = () => {
     if (isSigninForm === false) {
       const nameValidation = validateName(name.current.value);
       setNameValidateMessage(nameValidation);
+    }
+
+    if (emailValidation || passwordValidation) return;
+    if (!isSigninForm) {
+      //sign up logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setAuthenticationError(errorMessage);
+        });
+    } // sign in logic
+    else {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setAuthenticationError(errorMessage);
+        });
     }
   };
 
@@ -91,6 +133,9 @@ const Login = () => {
           >
             {isSigninForm ? "Sign In" : "Sign Up"}
           </button>
+          <p className="text-red-600 text-sm font-bold mb-3">
+            {authenticationError}
+          </p>
           <p className="text-[#737373]  ">
             {isSigninForm ? "New to FlixNchill ? " : "Already have account ? "}
             <span onClick={toggleform} className="text-white cursor-pointer">
