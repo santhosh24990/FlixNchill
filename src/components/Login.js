@@ -5,12 +5,15 @@ import {
   validateEmail,
   validatePassword,
   validateName,
-} from "../utis/Validate";
+} from "../utils/Validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
-import { auth } from "../utis/firebase";
+import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSigninForm, setIsSigninform] = useState(true);
@@ -21,6 +24,7 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
+  const dispatch = useDispatch();
 
   const toggleform = () => {
     email.current.value = null;
@@ -55,7 +59,18 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
+          updateProfile(user, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
+            })
+            .catch((error) => {
+              setAuthenticationError(error);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -71,7 +86,6 @@ const Login = () => {
       )
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
         })
         .catch((error) => {
           const errorCode = error.code;

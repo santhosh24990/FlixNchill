@@ -42,6 +42,8 @@ npm build
 firebase deploy - to deploy
 
 // create authentication
-go firebase docs and search for password authentication then search for 
-createUserWithEmailAndPassword api
+go firebase docs and search for password authentication then search for signup with email and password
+
+// setup redux store
+
  
