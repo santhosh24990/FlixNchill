@@ -10,8 +10,34 @@ export const options = {
   },
 };
 
+export const API_KEY = "00ecdffdb2ff4fb67680a28b7e419e32";
+
+// for showing in front page
+
 export const NOW_PLAYING_URL =
   "https://api.themoviedb.org/3/movie/now_playing?page=1";
 
+export const POPULAR_MOVIES_URL = "https://api.themoviedb.org/3/movie/popular";
 
-  export const MOVIE_IMAGE_URL="https://image.tmdb.org/t/p/w500/"
+export const TOP_RATED_MOVIES_URL =
+  "https://api.themoviedb.org/3/movie/top_rated";
+
+export const UPCOMING_MOVIES_URL =
+  "https://api.themoviedb.org/3/movie/upcoming";
+
+// for getting genre id
+
+export const GENRE_ID_URL = "https://api.themoviedb.org/3/genre/movie/list";
+
+// for showing when genre is selected
+
+export const MOVIES_BY_GENRE_URL =
+  "https://api.themoviedb.org/3/discover/movie?api_key=00ecdffdb2ff4fb67680a28b7e419e32&language=en-US&sort_by=release_date.desc&page=1&with_genres=";
+
+// FOR GETTING MOVIE IMAGE
+
+export const MOVIE_IMAGE_URL = "https://image.tmdb.org/t/p/w500/";
+
+// openAi gpt key
+
+export const OPENAI_KEY = "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";

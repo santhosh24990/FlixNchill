@@ -1,14 +1,21 @@
 import { useSelector } from "react-redux";
 import useMovieTrailer from "../utils/customHooks/useMovieTrailer";
+import VideoDetails from "./VideoDetails";
 const Videobackground = (props) => {
   const { id } = props;
   useMovieTrailer(id);
   const videoDetails = useSelector((store) => store.movies?.videoDetails);
+  const movies = useSelector((store) => store.movies?.nowPlayingMovies);
+  if (movies === null) return;
+
+  const mainMovie = movies[0];
+  const { original_title, overview } = mainMovie;
+
   return (
     videoDetails && (
-      <div className=" pointer-events-none overflow-sc select-none	w-screen overflow-x-hidden ">
+      <div className=" relative  pointer-events-none select-none w-[100%]  mt-[-70px] ">
         <iframe
-          className="  w-screen aspect-video overflow-x-hidden"
+          className="  w-[100%] aspect-video   "
           src={
             "https://www.youtube.com/embed/" +
             videoDetails?.key +
@@ -17,6 +24,7 @@ const Videobackground = (props) => {
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         ></iframe>
+       {<VideoDetails title={original_title} overview={overview} />} 
       </div>
     )
   );

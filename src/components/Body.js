@@ -1,5 +1,6 @@
 import Login from "./Login";
 import Browse from "./Browse";
+import GenrePage from "./GenrePage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const Body = () => {
@@ -15,6 +16,14 @@ const Body = () => {
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/genres",
+      element: <GenrePage />,
+    },
+    {
+      path: "/home",
+      element: <Browse />,
     },
   ]);
 

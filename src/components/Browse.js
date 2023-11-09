@@ -1,24 +1,29 @@
 import Header from "./Header";
-import useNowPlayingmovies from "../utils/customHooks/useNowPlayingmovies";
+import useGetMovies from "../utils/customHooks/useGetMovies";
 import MainContainer from "./MainContainer";
-import SecondaryContainer from "./secondaryContainer";
+import SecondaryContainer from "./SecondaryContainer";
+import GenrePage from "./GenrePage";
+import { useSelector } from "react-redux";
+import GptPage from "./GptPage";
 
 const Browse = () => {
-  useNowPlayingmovies();
+  useGetMovies();
+
+  const toggle = useSelector((store) => store.toggle);
 
   return (
-    <div>
+    <div className="h-screen bg-black">
       <Header />
-      <MainContainer />
-      <SecondaryContainer />
-      {/*
-       Main container
-         - video background
-         - video title
-       secondary container
-           -movie list*n
-           - cards *n
-      */}
+
+      {toggle.toggleGenre && <GenrePage />}
+      {toggle.toggleGpt && <GptPage />}
+
+      {toggle.toggleHome && (
+        <>
+          <MainContainer />
+          <SecondaryContainer />
+        </>
+      )}
     </div>
   );
 };

@@ -13,7 +13,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../utils/reduxStore/Slice/userSlice";
 
 const Login = () => {
   const [isSigninForm, setIsSigninform] = useState(true);
@@ -98,10 +98,11 @@ const Login = () => {
   return (
     <div className="">
       <Header />
-      <div className=" absolute z-1 w-screen h-screen">
-        <img className="w-full h-full" src={bgN} />
+
+      <div className=" absolute w-full h-screen ">
+        <img className="   w-full h-full object-cover " src={bgN} />
       </div>
-      <div className=" relative z-5 w-[500px] top-[90px] px-[65px] py-[50px] rounded-lg   mx-auto  text-white bg-[rgba(0,0,0,.75)] ">
+      <div className=" hidden relative z-5 w-[500px] top-[175px] px-[65px] py-[50px] rounded-lg   mx-auto  text-white bg-[rgba(0,0,0,.75)] ">
         <h1 className=" text-2xl font-bold mb-10 ">
           {isSigninForm ? "Sign In" : "Sign Up"}
         </h1>

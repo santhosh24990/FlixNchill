@@ -1,17 +1,30 @@
 import React from "react";
 import MovieCard from "./MovieCard";
-const MovieList = ({ title, movies }) => {
-  console.log(movies);
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
+const MovieList = ({ title, movies }) => {
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 8,
+    slidesToScroll: 3,
+  };
   return (
-    <div className="bg-black pt-6 ">
-      <div className="flex flex-col w-[90%] mx-auto gap-5 text-white">
-        <h1 className="text-3xl">{title}</h1>
-        <div>
-          <MovieCard posterId={movies[0].poster_path} />
+    movies && (
+      <div className="bg-black   ">
+        <div className="w-[90%] mx-auto pb-[50px] bg-opacity-25  ">
+          <div className="text-white text-3xl mb-5">{title}</div>
+
+          <Slider {...settings}>
+            {movies.map((movie) => (
+              <MovieCard key={movie.poster_path} posterId={movie.poster_path} />
+            ))}
+          </Slider>
         </div>
       </div>
-    </div>
+    )
   );
 };
 
